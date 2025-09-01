@@ -143,13 +143,25 @@ header {
   min-width: 250px;
 }
 
-@media (max-width: 1024px) { .gallery { column-count: 2; } }
+/* Media queries pour adaptabilité */
+@media (max-width: 1024px) {
+  .gallery { column-count: 2; }
+}
+
 @media (max-width: 480px) { 
+  /* Galerie et post-it */
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
+
+  /* Fond répété sur mobile */
+  body {
+    background: url('images/tapis.jpg') repeat top center;
+    background-size: auto;
+    background-attachment: scroll;
+  }
 }
 </style>
 </head>
@@ -159,9 +171,9 @@ header {
 
 <!-- Post-it rectangulaire et flottant, centré sous le titre -->
 <div class="postit">
-  <strong>Pour me contacter :</strong>
-  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span>
-  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span>
+  <strong>Pour me contacter :</strong><br>
+  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span><br>
+  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span><br>
   <span>Basée à Paris, France</span>
 </div>
 
@@ -253,3 +265,4 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
+
