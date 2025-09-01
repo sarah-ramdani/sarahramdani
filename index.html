@@ -5,16 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sarah Ramdani - Galerie</title>
 <style>
-/* ======================
-   Styles généraux
-====================== */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: url('images/tapis.jpg') no-repeat center top;
-  background-size: cover; /* desktop */
-  background-attachment: scroll; /* fixe bug zoom mobile */
+  background: url('images/tapis.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
@@ -22,27 +18,15 @@ body {
   text-align: center;
   overflow-x: hidden;
   cursor: url('images/cursor-heart.gif'), auto;
-  position: relative;
 }
 
-/* Overlay pour lisibilité */
-body::before {
-  content: "";
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.25);
-  pointer-events: none;
-}
-
-/* Header */
+/* Titre en blanc avec contour noir léger */
 header {
   padding: 25px 0 10px 0;
   font-size: 48px;
   font-weight: bold;
   color: white;
+  text-align: center;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
@@ -118,6 +102,7 @@ header {
   max-height: 90%;
 }
 
+/* Croix de fermeture */
 #close-lightbox {
   position: absolute;
   top: 15px;
@@ -129,7 +114,7 @@ header {
   z-index: 1001;
 }
 
-/* Chat fixé */
+/* Chat fixé en haut à gauche */
 #chat-container {
   position: fixed;
   top: 10px;
@@ -158,31 +143,26 @@ header {
   min-width: 250px;
 }
 
-/* ======================
-   Media Queries
-====================== */
-
-/* Tablette / petit écran */
+/* Media queries pour adaptabilité */
 @media (max-width: 1024px) {
   .gallery { column-count: 2; }
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-  body {
-    background-size: contain;       /* image entière visible */
-    background-position: top center;/* recentre le haut de l’image */
-    background-attachment: scroll;  /* évite zoom mobile */
-  }
-}
-
-/* Mobile très petit écran */
-@media (max-width: 480px) {
+@media (max-width: 480px) { 
+  /* Galerie et post-it */
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
+
+  /* Fond répété sur mobile */
+  body {
+    background: url('images/tapis.jpg') repeat;
+    background-size: auto;
+    background-position: top center;
+    background-attachment: scroll;
+  }
 }
 </style>
 </head>
@@ -223,11 +203,9 @@ header {
 const photos = [];
 for(let i=1; i<=39; i++) { photos.push(`photos/photo${i}.jpg`); }
 
-// Fixer certaines photos en premier
 const fixedStart = ['photos/photo32.jpg','photos/photo33.jpg','photos/photo37.jpg','photos/photo22.jpg'];
 const remainingPhotos = photos.filter(p => !fixedStart.includes(p));
 
-// Mélanger le reste
 function shuffle(array) {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i+1));
@@ -245,7 +223,6 @@ finalOrder.forEach(src => {
   gallery.appendChild(img);
 });
 
-// Lightbox
 gallery.addEventListener('click', e => {
   if(e.target.tagName === 'IMG'){
     const lightbox = document.getElementById('lightbox');
@@ -259,7 +236,6 @@ document.getElementById('close-lightbox').addEventListener('click', () => {
   document.getElementById('lightbox').style.display = 'none';
 });
 
-// Chat interactif
 const chatContainer = document.getElementById('chat-container');
 const chatInfo = document.getElementById('chat-info');
 chatContainer.addEventListener('click', e => {
@@ -268,7 +244,6 @@ chatContainer.addEventListener('click', e => {
 });
 document.body.addEventListener('click', () => { chatInfo.style.display = 'none'; });
 
-// Paillettes interactives
 document.querySelectorAll('.gallery img').forEach(img => {
   img.addEventListener('mousemove', e => {
     const rect = img.getBoundingClientRect();
