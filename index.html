@@ -5,15 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sarah Ramdani - Galerie</title>
 <style>
-/* ======================
-   Styles généraux
-====================== */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: url('images/tapis.jpg') no-repeat center top;
-  background-size: cover;       /* Desktop : plein écran */
+  background: url('images/tapis.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
@@ -21,19 +18,19 @@ body {
   text-align: center;
   overflow-x: hidden;
   cursor: url('images/cursor-heart.gif'), auto;
-  transition: background 0.3s ease;
 }
 
-/* Header */
+/* Titre en blanc avec contour noir léger */
 header {
   padding: 25px 0 10px 0;
   font-size: 48px;
   font-weight: bold;
   color: white;
+  text-align: center;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
-/* Post-it flottant */
+/* Post-it flottant, rectangle long, centré sous le titre */
 .postit {
   display: inline-block;
   background: #fff9a6;
@@ -105,6 +102,7 @@ header {
   max-height: 90%;
 }
 
+/* Croix de fermeture */
 #close-lightbox {
   position: absolute;
   top: 15px;
@@ -116,7 +114,7 @@ header {
   z-index: 1001;
 }
 
-/* Chat fixé */
+/* Chat fixé en haut à gauche */
 #chat-container {
   position: fixed;
   top: 10px;
@@ -145,28 +143,8 @@ header {
   min-width: 250px;
 }
 
-/* ======================
-   Media Queries
-====================== */
-
-/* Tablette / petit écran */
-@media (max-width: 1024px) {
-  .gallery { column-count: 2; }
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-  body {
-    background-size: contain;       /* l'image entière visible */
-    background-position: top center;
-    background-repeat: no-repeat;
-    background-color: #f5f1eb;     /* couleur harmonisée avec le tapis */
-    background-attachment: scroll;  /* supprime fixed sur mobile */
-  }
-}
-
-/* Mobile très petit écran */
-@media (max-width: 480px) {
+@media (max-width: 1024px) { .gallery { column-count: 2; } }
+@media (max-width: 480px) { 
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
@@ -179,11 +157,11 @@ header {
 
 <header>Sarah Ramdani</header>
 
-<!-- Post-it rectangulaire et flottant -->
+<!-- Post-it rectangulaire et flottant, centré sous le titre -->
 <div class="postit">
-  <strong>Pour me contacter :</strong><br>
-  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span><br>
-  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span><br>
+  <strong>Pour me contacter :</strong>
+  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span>
+  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span>
   <span>Basée à Paris, France</span>
 </div>
 
@@ -275,4 +253,3 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
-
