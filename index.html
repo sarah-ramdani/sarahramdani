@@ -143,13 +143,26 @@ header {
   min-width: 250px;
 }
 
-@media (max-width: 1024px) { .gallery { column-count: 2; } }
+/* Media queries pour responsive */
+
+/* Tablette / petit écran */
+@media (max-width: 1024px) {
+  .gallery { column-count: 2; }
+}
+
+/* Mobile */
 @media (max-width: 480px) { 
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
+
+  /* Fond fuchsia uniquement sur mobile */
+  body {
+    background: #ff00ff; /* fuchsia */
+    background-attachment: scroll; /* pour éviter zoom mobile */
+  }
 }
 </style>
 </head>
@@ -253,3 +266,4 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
+
