@@ -20,7 +20,7 @@ body {
   cursor: url('images/cursor-heart.gif'), auto;
 }
 
-/* Titre en blanc avec contour noir léger */
+/* Titre */
 header {
   padding: 25px 0 10px 0;
   font-size: 48px;
@@ -30,7 +30,7 @@ header {
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
-/* Post-it flottant, rectangle long, centré sous le titre */
+/* Post-it */
 .postit {
   display: inline-block;
   background: #fff9a6;
@@ -47,7 +47,6 @@ header {
   animation: float 3s ease-in-out infinite alternate;
 }
 
-/* Animation flottante */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -102,7 +101,6 @@ header {
   max-height: 90%;
 }
 
-/* Croix de fermeture */
 #close-lightbox {
   position: absolute;
   top: 15px;
@@ -114,7 +112,7 @@ header {
   z-index: 1001;
 }
 
-/* Chat fixé en haut à gauche */
+/* Chat */
 #chat-container {
   position: fixed;
   top: 10px;
@@ -143,14 +141,11 @@ header {
   min-width: 250px;
 }
 
-/* Media queries pour responsive */
-
-/* Tablette / petit écran */
-@media (max-width: 1024px) {
+/* Media queries */
+@media (max-width: 1024px) { 
   .gallery { column-count: 2; }
 }
 
-/* Mobile */
 @media (max-width: 480px) { 
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
@@ -158,10 +153,11 @@ header {
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
 
-  /* Fond fuchsia uniquement sur mobile */
+  /* Fond fuchsia pour mobile uniquement */
   body {
-    background: #ff00ff; /* fuchsia */
-    background-attachment: scroll; /* pour éviter zoom mobile */
+    background-image: none; /* supprime l’image */
+    background-color: #ff00ff; /* fond fuchsia */
+    background-attachment: scroll;
   }
 }
 </style>
@@ -170,7 +166,6 @@ header {
 
 <header>Sarah Ramdani</header>
 
-<!-- Post-it rectangulaire et flottant, centré sous le titre -->
 <div class="postit">
   <strong>Pour me contacter :</strong>
   <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span>
@@ -187,7 +182,6 @@ header {
   <img id="lightbox-img" src="">
 </div>
 
-<!-- Chat -->
 <div id="chat-container">
   <img src="images/chat.gif" alt="Chat repos">
   <div id="chat-info">
@@ -205,11 +199,9 @@ header {
 const photos = [];
 for(let i=1; i<=39; i++) { photos.push(`photos/photo${i}.jpg`); }
 
-// Fixer certaines photos en premier
 const fixedStart = ['photos/photo32.jpg','photos/photo33.jpg','photos/photo37.jpg','photos/photo22.jpg'];
 const remainingPhotos = photos.filter(p => !fixedStart.includes(p));
 
-// Mélanger le reste
 function shuffle(array) {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i+1));
@@ -227,7 +219,7 @@ finalOrder.forEach(src => {
   gallery.appendChild(img);
 });
 
-// Lightbox avec croix
+// Lightbox
 gallery.addEventListener('click', e => {
   if(e.target.tagName === 'IMG'){
     const lightbox = document.getElementById('lightbox');
@@ -250,7 +242,7 @@ chatContainer.addEventListener('click', e => {
 });
 document.body.addEventListener('click', () => { chatInfo.style.display = 'none'; });
 
-// Paillettes interactives sur les images
+// Paillettes interactives
 document.querySelectorAll('.gallery img').forEach(img => {
   img.addEventListener('mousemove', e => {
     const rect = img.getBoundingClientRect();
