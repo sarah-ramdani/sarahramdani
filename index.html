@@ -47,7 +47,6 @@ header {
   animation: float 3s ease-in-out infinite alternate;
 }
 
-/* Animation flottante */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -148,17 +147,16 @@ header {
   .gallery { column-count: 2; }
 }
 
-@media (max-width: 480px) { 
-  /* Galerie et post-it */
+@media (max-width: 480px) {
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
 
-  /* Fond mobile : image de ciel réaliste */
+  /* Fond mobile différent */
   body {
-    background: url('images/ciel-mobile.jpg') no-repeat center top !important;
+    background: url('images/rose.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
     background-attachment: scroll !important;
   }
