@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarah Ramdani - Galerie</title>
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: url('images/tapis.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  text-align: center;
+  overflow-x: hidden;
+  cursor: url('images/cursor-heart.gif'), auto;
+}
+
+/* Titre en blanc avec contour noir léger */
+header {
+  padding: 25px 0 10px 0;
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+}
+
+/* Post-it flottant, rectangle long, centré sous le titre */
+.postit {
+  display: inline-block;
+  background: #fff9a6;
+  color: #000;
+  padding: 12px 30px;
+  border-radius: 8px;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.4);
+  margin: 10px auto 20px auto;
+  text-align: left;
+  min-width: 450px;
+  max-width: 700px;
+  font-size: 14px;
+  line-height: 1.4;
+  animation: float 3s ease-in-out infinite alternate;
+}
+
+/* Animation flottante */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Galerie */
+.gallery-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+}
+
+.gallery {
+  column-count: 3;
+  column-gap: 5px;
+  width: 90%;
+}
+
+.gallery img {
+  width: 100%;
+  margin: 0 0 5px 0;
+  cursor: pointer;
+  display: block;
+  border-radius: 4px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px gold;
+}
+
+/* Lightbox */
+#lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.85);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  flex-direction: column;
+}
+
+#lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+/* Croix de fermeture */
+#close-lightbox {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 36px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+  z-index: 1001;
+}
+
+/* Chat fixé en haut à gauche */
+#chat-container {
+  position: fixed;
+  top: 10px;
+  left: 0px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+#chat-container img {
+  width: 120px;
+}
+
+#chat-info {
+  display: none;
+  position: absolute;
+  top: 130px; 
+  left: 0;
+  background: rgba(255,255,255,0.95);
+  color: #000;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.4);
+  font-size: 14px;
+  border-radius: 5px;
+  text-align: left;
+  min-width: 250px;
+}
+
+@media (max-width: 1024px) { .gallery { column-count: 2; } }
+@media (max-width: 480px) { 
+  .gallery { column-count: 1; width: 95%; }
+  header { font-size: 36px; }
+  #chat-container img { width: 90px; }
+  .postit { max-width: 90%; min-width: auto; font-size: 13px; }
+  #chat-info { min-width: 200px; }
+}
+</style>
+</head>
+<body>
+
+<header>Sarah Ramdani</header>
+
+<!-- Post-it rectangulaire et flottant, centré sous le titre -->
+<div class="postit">
+  <strong>Pour me contacter :</strong>
+  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span>
+  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span>
+  <span>Basée à Paris, France</span>
+</div>
+
+<div class="gallery-container">
+  <div class="gallery" id="gallery"></div>
+</div>
+
+<div id="lightbox">
+  <div id="close-lightbox">&times;</div>
+  <img id="lightbox-img" src="">
+</div>
+
+<!-- Chat -->
+<div id="chat-container">
+  <img src="images/chat.gif" alt="Chat repos">
+  <div id="chat-info">
+    <strong>Je m'appelle Sarah Ramdani, diplômée de la Sorbonne en lettres modernes et étudiante à l'EHESS.</strong><br>
+    <em>Photographe passionnée, je tente de saisir des petits instants oniriques.</em>
+    <hr>
+    <strong>Contact :</strong><br>
+    <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a><br>
+    <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a>
+  </div>
+</div>
+
+<script>
+// Tableau avec toutes les images
+const photos = [];
+for(let i=1; i<=39; i++) { photos.push(`photos/photo${i}.jpg`); }
+
+// Fixer certaines photos en premier
+const fixedStart = ['photos/photo32.jpg','photos/photo33.jpg','photos/photo37.jpg','photos/photo22.jpg'];
+const remainingPhotos = photos.filter(p => !fixedStart.includes(p));
+
+// Mélanger le reste
+function shuffle(array) {
+  for (let i = array.length -1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
+const gallery = document.getElementById('gallery');
+const finalOrder = fixedStart.concat(shuffle(remainingPhotos));
+finalOrder.forEach(src => {
+  const img = document.createElement('img');
+  img.src = src;
+  img.alt = src;
+  gallery.appendChild(img);
+});
+
+// Lightbox avec croix
+gallery.addEventListener('click', e => {
+  if(e.target.tagName === 'IMG'){
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightbox.style.display = 'flex';
+    lightboxImg.src = e.target.src;
+  }
+});
+
+document.getElementById('close-lightbox').addEventListener('click', () => {
+  document.getElementById('lightbox').style.display = 'none';
+});
+
+// Chat interactif
+const chatContainer = document.getElementById('chat-container');
+const chatInfo = document.getElementById('chat-info');
+chatContainer.addEventListener('click', e => {
+  e.stopPropagation();
+  chatInfo.style.display = chatInfo.style.display === 'block' ? 'none' : 'block';
+});
+document.body.addEventListener('click', () => { chatInfo.style.display = 'none'; });
+
+// Paillettes interactives sur les images
+document.querySelectorAll('.gallery img').forEach(img => {
+  img.addEventListener('mousemove', e => {
+    const rect = img.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    img.style.boxShadow = `${x/20}px ${y/20}px 15px rgba(255,215,0,0.7)`;
+  });
+  img.addEventListener('mouseleave', () => {
+    img.style.boxShadow = 'none';
+  });
+});
+</script>
+
+</body>
+</html>
