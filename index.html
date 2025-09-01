@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sarah Ramdani - Galerie</title>
 <style>
+/* ======================
+   Styles généraux
+====================== */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: url('images/tapis.jpg') no-repeat center center fixed;
-  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
@@ -18,15 +19,39 @@ body {
   text-align: center;
   overflow-x: hidden;
   cursor: url('images/cursor-heart.gif'), auto;
+  position: relative;
 }
 
-/* Titre en blanc avec contour noir léger */
+/* Image de fond en <img> */
+.bg-img {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  object-fit: cover;   /* remplit l'écran sans zoom exagéré */
+  pointer-events: none; /* laisse les clics passer */
+}
+
+/* Overlay pour lisibilité */
+body::before {
+  content: "";
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.25);
+  pointer-events: none;
+}
+
+/* Header */
 header {
   padding: 25px 0 10px 0;
   font-size: 48px;
   font-weight: bold;
   color: white;
-  text-align: center;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
@@ -47,6 +72,7 @@ header {
   animation: float 3s ease-in-out infinite alternate;
 }
 
+/* Animation flottante */
 @keyframes float {
   0% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }
@@ -101,7 +127,6 @@ header {
   max-height: 90%;
 }
 
-/* Croix de fermeture */
 #close-lightbox {
   position: absolute;
   top: 15px;
@@ -113,7 +138,7 @@ header {
   z-index: 1001;
 }
 
-/* Chat fixé en haut à gauche */
+/* Chat fixé */
 #chat-container {
   position: fixed;
   top: 10px;
@@ -142,28 +167,29 @@ header {
   min-width: 250px;
 }
 
-/* Media queries pour adaptabilité */
+/* ======================
+   Media Queries
+====================== */
+
+/* Tablette / petit écran */
 @media (max-width: 1024px) {
   .gallery { column-count: 2; }
 }
 
+/* Mobile très petit écran */
 @media (max-width: 480px) {
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
   .postit { max-width: 90%; min-width: auto; font-size: 13px; }
   #chat-info { min-width: 200px; }
-
-  /* Fond mobile différent, avec scroll pour compatibilité */
-  body {
-    background: url('images/frutiger.jpg') no-repeat center center;
-    background-size: cover;
-    background-attachment: scroll;
-  }
 }
 </style>
 </head>
 <body>
+
+<!-- Image de fond -->
+<img src="images/frutiger-aero.jpg" alt="" class="bg-img">
 
 <header>Sarah Ramdani</header>
 
@@ -200,9 +226,11 @@ header {
 const photos = [];
 for(let i=1; i<=39; i++) { photos.push(`photos/photo${i}.jpg`); }
 
+// Fixer certaines photos en premier
 const fixedStart = ['photos/photo32.jpg','photos/photo33.jpg','photos/photo37.jpg','photos/photo22.jpg'];
 const remainingPhotos = photos.filter(p => !fixedStart.includes(p));
 
+// Mélanger le reste
 function shuffle(array) {
   for (let i = array.length -1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i+1));
@@ -220,6 +248,7 @@ finalOrder.forEach(src => {
   gallery.appendChild(img);
 });
 
+// Lightbox
 gallery.addEventListener('click', e => {
   if(e.target.tagName === 'IMG'){
     const lightbox = document.getElementById('lightbox');
@@ -233,6 +262,7 @@ document.getElementById('close-lightbox').addEventListener('click', () => {
   document.getElementById('lightbox').style.display = 'none';
 });
 
+// Chat interactif
 const chatContainer = document.getElementById('chat-container');
 const chatInfo = document.getElementById('chat-info');
 chatContainer.addEventListener('click', e => {
@@ -241,6 +271,7 @@ chatContainer.addEventListener('click', e => {
 });
 document.body.addEventListener('click', () => { chatInfo.style.display = 'none'; });
 
+// Paillettes interactives
 document.querySelectorAll('.gallery img').forEach(img => {
   img.addEventListener('mousemove', e => {
     const rect = img.getBoundingClientRect();
@@ -256,3 +287,4 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
+
