@@ -12,8 +12,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: url('images/tapis.jpg') no-repeat center top fixed;
-  background-size: cover; /* Desktop : plein écran */
+  background: url('images/tapis.jpg') no-repeat center top;
+  background-size: cover;       /* Desktop : plein écran */
   color: white;
   display: flex;
   flex-direction: column;
@@ -157,8 +157,11 @@ header {
 /* Mobile */
 @media (max-width: 768px) {
   body {
-    background-size: contain;       /* L'image s'adapte sans être coupée */
-    background-position: top center;/* Centre le haut de l'image */
+    background-size: contain;       /* l'image entière visible */
+    background-position: top center;
+    background-repeat: no-repeat;
+    background-color: #f5f1eb;     /* couleur harmonisée avec le tapis */
+    background-attachment: scroll;  /* supprime fixed sur mobile */
   }
 }
 
@@ -272,3 +275,4 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
+
