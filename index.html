@@ -5,13 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sarah Ramdani - Galerie</title>
 <style>
-/* ======================
-   Styles généraux
-====================== */
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, Helvetica, sans-serif;
+  background: url('images/tapis.jpg') no-repeat center center fixed;
+  background-size: cover;
   color: white;
   display: flex;
   flex-direction: column;
@@ -19,43 +18,19 @@ body {
   text-align: center;
   overflow-x: hidden;
   cursor: url('images/cursor-heart.gif'), auto;
-  position: relative;
 }
 
-/* Image de fond en <img> */
-.bg-img {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  object-fit: cover;   /* remplit l'écran sans zoom exagéré */
-  pointer-events: none; /* laisse les clics passer */
-}
-
-/* Overlay pour lisibilité */
-body::before {
-  content: "";
-  position: fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background: rgba(0,0,0,0.25);
-  pointer-events: none;
-}
-
-/* Header */
+/* Titre en blanc avec contour noir léger */
 header {
   padding: 25px 0 10px 0;
   font-size: 48px;
   font-weight: bold;
   color: white;
+  text-align: center;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
 }
 
-/* Post-it flottant */
+/* Post-it flottant, rectangle long, centré sous le titre */
 .postit {
   display: inline-block;
   background: #fff9a6;
@@ -127,6 +102,7 @@ header {
   max-height: 90%;
 }
 
+/* Croix de fermeture */
 #close-lightbox {
   position: absolute;
   top: 15px;
@@ -138,7 +114,7 @@ header {
   z-index: 1001;
 }
 
-/* Chat fixé */
+/* Chat fixé en haut à gauche */
 #chat-container {
   position: fixed;
   top: 10px;
@@ -167,17 +143,8 @@ header {
   min-width: 250px;
 }
 
-/* ======================
-   Media Queries
-====================== */
-
-/* Tablette / petit écran */
-@media (max-width: 1024px) {
-  .gallery { column-count: 2; }
-}
-
-/* Mobile très petit écran */
-@media (max-width: 480px) {
+@media (max-width: 1024px) { .gallery { column-count: 2; } }
+@media (max-width: 480px) { 
   .gallery { column-count: 1; width: 95%; }
   header { font-size: 36px; }
   #chat-container img { width: 90px; }
@@ -188,15 +155,13 @@ header {
 </head>
 <body>
 
-<!-- Image de fond -->
-<img src="images/frutiger-aero.jpg" alt="" class="bg-img">
-
 <header>Sarah Ramdani</header>
 
+<!-- Post-it rectangulaire et flottant, centré sous le titre -->
 <div class="postit">
-  <strong>Pour me contacter :</strong><br>
-  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span><br>
-  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span><br>
+  <strong>Pour me contacter :</strong>
+  <span>Email: <a href="mailto:sramdani0704@gmail.com">sramdani0704@gmail.com</a></span>
+  <span>Instagram: <a href="https://instagram.com/sarah.rmdi" target="_blank">@sarah.rmdi</a></span>
   <span>Basée à Paris, France</span>
 </div>
 
@@ -209,6 +174,7 @@ header {
   <img id="lightbox-img" src="">
 </div>
 
+<!-- Chat -->
 <div id="chat-container">
   <img src="images/chat.gif" alt="Chat repos">
   <div id="chat-info">
@@ -248,7 +214,7 @@ finalOrder.forEach(src => {
   gallery.appendChild(img);
 });
 
-// Lightbox
+// Lightbox avec croix
 gallery.addEventListener('click', e => {
   if(e.target.tagName === 'IMG'){
     const lightbox = document.getElementById('lightbox');
@@ -271,7 +237,7 @@ chatContainer.addEventListener('click', e => {
 });
 document.body.addEventListener('click', () => { chatInfo.style.display = 'none'; });
 
-// Paillettes interactives
+// Paillettes interactives sur les images
 document.querySelectorAll('.gallery img').forEach(img => {
   img.addEventListener('mousemove', e => {
     const rect = img.getBoundingClientRect();
@@ -287,4 +253,3 @@ document.querySelectorAll('.gallery img').forEach(img => {
 
 </body>
 </html>
-
